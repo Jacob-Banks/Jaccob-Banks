@@ -1,7 +1,6 @@
 // Assignment code here
-//let characters = "";
 let passwordG = [];
-let lower = [
+const lower = [
   "a",
   "b",
   "c",
@@ -29,7 +28,7 @@ let lower = [
   "y",
   "z",
 ];
-let upper = [
+const upper = [
   "A",
   "B",
   "C",
@@ -57,8 +56,8 @@ let upper = [
   "Y",
   "Z",
 ];
-let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-let special = [
+const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const special = [
   "!",
   "#",
   "$",
@@ -90,188 +89,147 @@ let special = [
   "}",
   "~",
 ];
-let test1 = "false";
-let test2 = "false";
-let test3 = "false";
-let test4 = "false";
-
+let length = 0;
+let lowercase = false;
+let uppercase = false;
+let numberscase = false;
+let specialcase = false;
+let test1 = false;
+let test2 = false;
+let test3 = false;
+let test4 = false;
 let z = 0;
+let characters = "";
 
-function generatePassword() {
-  let characters = ""; // empty characters if generator is run again
-  var length = prompt(
+function getLength() {
+  length = prompt(
     // get the length
     "Please enter number of characters, theres a minimum of 8 and a max of 128",
     "8"
   );
-  while (length < 8 || length > 128 || isNaN(length) === true) {
+  while (length < 4 || length > 128 || isNaN(length) === true) {
     //|| typeof length === "string"
     //insure length range
-    var length = prompt(
+    length = prompt(
       "invalid input: an integer between 8 and 128 is required",
       "8"
     );
   }
-  console.log(isNaN(length));
-  if (length >= 8 && length <= 128) {
+  console.log(isNaN(length) + " should be false");
+  if (length >= 4 && length <= 128) {
     // confirm  wants length
-    var confirmLength = window.confirm(
+    let confirmLength = window.confirm(
       "Are you sure you want a password length of" + length
     );
 
     if (confirmLength === true) {
-      console.log(length + "confirmed");
+      console.log(length + " confirmed");
     } else {
-      var length = prompt(
+      length = prompt(
         //if they dont confirm ask base question again
         "Please enter number of characters, theres a minimum of 8 and a max of 128",
         "8"
       );
-      while (length < 8 || length > 128) {
-        // insure length
-        var length = prompt(
-          "invalid input a minimum of 8 and a max of 128 is required",
-          "8"
-        );
-      }
+    }
+    while (length < 4 || length > 128 || isNaN(length) === true) {
+      // insure length
+      length = prompt(
+        "invalid input a minimum of 8 and a max of 128 is required",
+        "8"
+      );
     }
   }
+}
 
-  let lowcharTypes = prompt(" do you want lowercase letters ?", "yes or no");
-  //ask if they want lower case
-  while (lowcharTypes !== "yes" && lowcharTypes !== "no") {
+function getCharType(type) {
+  let charTypes = prompt(" do you want " + type + " characters ?", "yes or no");
+  //ask if they want type case
+  while (charTypes !== "yes" && charTypes !== "no") {
     //insure yes or no
-    lowcharTypes = prompt(
-      " error you must enter 'yes' or 'no' Do you want lower case numbers ",
+    charTypes = prompt(
+      " error you must enter 'yes' or 'no' Do you want " +
+        type +
+        " characters ?",
       "yes or no"
     );
   }
-  if (lowcharTypes === "yes") {
-    var confirmLowChar = window.confirm(
+  if (charTypes === "yes") {
+    var confirmChar = window.confirm(
       //confirm yes
-      lowcharTypes + " I want lowercase letters included"
+      charTypes + " I want " + type + " characters included?"
     );
-    if (confirmLowChar == true) {
-      console.log(lowcharTypes + "confirmed");
-    }
+    if (confirmChar == true) {
+      console.log(charTypes + "confirmed");
+    } else charTypes = "no"; //switch value if cancel is clicked
+    console.log("changed their mind");
   } else {
-    var confirmLowChar = window.confirm(
+    var confirmChar = window.confirm(
       //confirm no
-      lowcharTypes + " I do not want lowercase letters included"
+      charTypes + " I do not want " + type + " characters included?"
     );
-    if (confirmLowChar == true) {
-      console.log(lowcharTypes + "confirmed");
-    }
-  }
-  // uppercase
-  let uppcharTypes = prompt(" do you want uppercase letters ?", "yes or no");
-  while (uppcharTypes !== "yes" && uppcharTypes !== "no") {
-    uppcharTypes = prompt(" do you want uppercase letters ?", "yes or no");
-  }
-  if (uppcharTypes === "yes") {
-    var confirmuppChar = window.confirm(
-      uppcharTypes + " I want uppercase letters included"
-    );
-
-    if (confirmuppChar == true) {
-      console.log(uppcharTypes + "confirmed");
-    }
-  } else {
-    var confirmuppChar = window.confirm(
-      uppcharTypes + " I do not want uppercase letters included"
-    );
-    if (confirmuppChar == true) {
-      console.log(uppcharTypes + "confirmed");
-    }
-  }
-  //numbers
-  let numbercharTypes = prompt(" do you want numbers ?", "yes or no");
-  while (numbercharTypes !== "yes" && numbercharTypes !== "no") {
-    numbercharTypes = prompt(" do you want numbers ?", "yes or no");
-  }
-  if (numbercharTypes === "yes") {
-    var confirmnumberChar = window.confirm(
-      numbercharTypes + " I want numbers included"
-    );
-
-    if (confirmnumberChar == true) {
-      console.log(numbercharTypes + "confirmed");
-    }
-  } else {
-    var confirmnumberChar = window.confirm(
-      numbercharTypes + " I do not want numbers included"
-    );
-
-    if (confirmnumberChar == true) {
-      console.log(numbercharTypes + "confirmed");
-    }
-  }
-  // spechial
-  let specialcharTypes = prompt(
-    " do you want specialcase letters ?",
-    "yes or no"
-  );
-  while (specialcharTypes !== "yes" && specialcharTypes !== "no") {
-    specialcharTypes = prompt(
-      " do you want specialcase letters ?",
-      "yes or no"
-    );
-  }
-  if (specialcharTypes === "yes") {
-    var confirmspecialChar = window.confirm(
-      specialcharTypes + " I want specialcase letters included"
-    );
-
-    if (confirmspecialChar == true) {
-      console.log(specialcharTypes + "confirmed");
-    }
-  } else {
-    var confirmspecialChar = window.confirm(
-      specialcharTypes + " I do not want specialcase letters included"
-    );
-
-    if (confirmspecialChar == true) {
-      console.log(specialcharTypes + "confirmed");
-    }
+    if (confirmChar == true) {
+      console.log(charTypes + "confirmed");
+    } else charTypes = "yes";
+    console.log("changed their mind");
   }
 
-  if (
-    // if they said no to all char types
-    specialcharTypes === "no" &&
-    lowcharTypes === "no" &&
-    uppcharTypes === "no" &&
-    numbercharTypes === "no"
-  ) {
+  // add type of characters
+  if (type === "lower" && charTypes === "yes") {
+    characters += "abcdefghijklmnopqrstuvwxyz";
+    lowercase = true;
+  }
+  if (type === "upper" && charTypes === "yes") {
+    characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    uppercase = true;
+  }
+  if (type === "numbered" && charTypes === "yes") {
+    characters += "0123456789";
+    numberscase = true;
+  }
+  if (type === "specialcase" && charTypes === "yes") {
+    characters += "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+    specialcase = true;
+  }
+}
+
+function insureChar() {
+  if (characters === "") {
     var confirmDefaultChar = window.confirm(
-      // call them moron and give them a default or reload page
+      // call them a moron and give them a default or reload page
       " Characters must be included, to go with default settings select ok, to start over select cancel"
     );
 
     if (confirmDefaultChar === true) {
       //default is low upper number
-      lowcharTypes = "yes";
-      uppcharTypes = "yes";
-      numbercharTypes = "yes";
+      characters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      lowercase = true;
+      uppercase = true;
+      numberscase = true;
     } else {
       //refresh page
       location.reload;
     }
   }
-  //end of prompts
+}
+function generatePassword() {
+  //reset values if genertor is run agaian
+  characters = ""; // empty characters if generator is run again
+  length = 0;
+  lowercase = false;
+  uppercase = false;
+  numberscase = false;
+  specialcase = false;
 
-  //add the approiate characters to characters string
-  if (lowcharTypes === "yes") {
-    characters += "abcdefghijklmnopqrstuvwxyz";
-  }
-  if (uppcharTypes === "yes") {
-    characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  }
-  if (numbercharTypes === "yes") {
-    characters += "0123456789";
-  }
-  if (specialcharTypes === "yes") {
-    characters += "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
-  }
+  getLength();
+  getCharType("lower");
+  getCharType("upper");
+  getCharType("numbered");
+  getCharType("specialcase");
+
+  // if they said no to all char types
+  insureChar();
+  //end of prompts
 
   var charactersLength = characters.length;
   var goodToGo = false;
@@ -281,29 +239,29 @@ function generatePassword() {
     //then fill password arrray
     passwordG = [];
 
-    for (var i = 0; i < length; i++) {
+    for (i = 0; i < length; i++) {
       passwordG.push(
         characters.charAt(Math.floor(Math.random() * charactersLength))
       ); //randomly fill password with characters
     }
     //the check to see if char type is presant
-    if (lowcharTypes === "yes") {
+    if (lowercase === true) {
       test1 = passwordG.some((el) => lower.includes(el));
     } else {
       //if its not supposed to be there make it pass goodtogo check
       test1 = true;
     }
-    if (uppcharTypes === "yes") {
+    if (uppercase === true) {
       test2 = passwordG.some((el) => upper.includes(el));
     } else {
       test2 = true;
     }
-    if (numbercharTypes === "yes") {
+    if (numberscase === true) {
       test3 = passwordG.some((el) => numbers.includes(el));
     } else {
       test3 = true;
     }
-    if (specialcharTypes === "yes") {
+    if (specialcase === true) {
       test4 = passwordG.some((el) => special.includes(el));
     } else {
       test4 = true;
@@ -319,7 +277,7 @@ function generatePassword() {
   console.log(characters);
   console.log("this ran  " + z + "  times");
   return passwordG.join("");
-} //end of the marathon function
+} //end of the generatepassword function
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -333,52 +291,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-// else {     ask again????
-//   lowcharTypes = prompt(" do you want lowercase letters ?", "yes or no");
-//   while (lowcharTypes !== "yes" && lowcharTypes !== "no") {
-//     lowcharTypes = prompt(" do you want lowercase letters ?", "yes or no");
-//   }
-// else {
-//   uppcharTypes = prompt(" do you want uppercase letters ?", "yes or no");
-//   while (uppcharTypes !== "yes" && uppcharTypes !== "no") {
-//     uppcharTypes = prompt(" do you want uppercase letters ?", "yes or no");
-//   }
-// }else {
-//   uppcharTypes = prompt(" do you want uppercase letters ?", "yes or no");
-//   while (uppcharTypes !== "yes" && uppcharTypes !== "no") {
-//     uppcharTypes = prompt(" do you want uppercase letters ?", "yes or no");
-//   }
-// // }else {
-//   numbercharTypes = prompt(" do you want numbers ?", "yes or no");
-//   while (numbercharTypes !== "yes" && numbercharTypes !== "no") {
-//     numbercharTypes = prompt(" do you want numbers ?", "yes or no");
-//   } //stop
-// }else {
-//   numbercharTypes = prompt(" do you want numbers ?", "yes or no");
-//   while (numbercharTypes !== "yes" && numbercharTypes !== "no") {
-//     numbercharTypes = prompt(" do you want numbers ?", "yes or no");
-//   }
-// }else {
-//   specialcharTypes = prompt(
-//     " do you want specialcase letters ?",
-//     "yes or no"
-//   );
-//   while (specialcharTypes !== "yes" && specialcharTypes !== "no") {
-//     specialcharTypes = prompt(
-//       " do you want specialcase letters ?",
-//       "yes or no"
-//     );
-//   }
-// }
-// else {
-//   specialcharTypes = prompt(
-//     " do you want specialcase letters ?",
-//     "yes or no"
-//   );
-//   while (specialcharTypes !== "yes" && specialcharTypes !== "no") {
-//     specialcharTypes = prompt(
-//       " do you want specialcase letters ?",
-//       "yes or no"
-//     );
-//   }
-// }
