@@ -90,6 +90,7 @@ const special = [
   "~",
 ];
 let length = 0;
+let characters = "";
 
 function getLength() {
   // get the length
@@ -129,6 +130,49 @@ function getLength() {
         "8"
       ); //  no more chances to change
     }
+  }
+}
+
+function getLowerCharType() {
+  let charTypes = prompt(" do you want lower case characters ?", "yes or no");
+  //ask if they want type case
+  while (charTypes !== "yes" && charTypes !== "no") {
+    //insure yes or no
+    charTypes = prompt(
+      " error you must enter 'yes' or 'no' Do you want lower case characters ?",
+      "yes or no"
+    );
+  }
+  if (charTypes === "yes") {
+    var confirmChar = window.confirm(
+      //confirm yes
+      charTypes + " I want lowercase characters included?"
+    );
+    if (confirmChar === true) {
+      console.log(charTypes + "confirmed");
+      charTypes = "yes";
+    } else {
+      charTypes = "no"; //switch value if cancel is clicked
+      console.log("changed their mind");
+    }
+  } else {
+    //if chartype === no
+    var confirmChar = window.confirm(
+      //confirm no
+      charTypes + " I do not want lowercase characters included?"
+    );
+    if (confirmChar == true) {
+      console.log(charTypes + "confirmed");
+    } else {
+      charTypes = "yes";
+      console.log("changed their mind");
+    }
+  }
+
+  // add type of characters
+  if (type === "lowercase" && charTypes === "yes") {
+    characters += "abcdefghijklmnopqrstuvwxyz";
+    lowers = true;
   }
 }
 
